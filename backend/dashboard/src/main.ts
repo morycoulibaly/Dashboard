@@ -7,11 +7,8 @@ async function bootstrap() {
 
   // Configuration du CORS pour la production et le local
   app.enableCors({
-    origin: [
-      'http://localhost:3000',
-      process.env.FRONTEND_URL, // C'est ici qu'on mettra l'URL Vercel de ton front
-    ],
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    origin: '*', // Pour le test, on autorise tout. On sécurisera après !
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
 
