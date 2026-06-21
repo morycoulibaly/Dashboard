@@ -7,7 +7,18 @@ async function bootstrap() {
 
   // Configuration du CORS pour la production et le local
   app.enableCors({
-    origin: process.env.FRONTEND_URL || 'http://localhost:3000', // URL de Vercel en prod, localhost en dev
+    origin: (origin, callback) => {
+      // Si la requête vient de localhost ou d'un domaine qui contient '.vercel.app'
+      if (
+        !origin ||
+        origin.startsWith('http://localhost') ||
+        origin.endsWith('.vercel.app')
+      ) {
+        callback(null, true);
+      } else {
+        callback(new Error('Bloqué par la sécurité CORS de Mory'));
+      }
+    },
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
