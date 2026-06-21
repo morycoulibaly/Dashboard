@@ -7,7 +7,7 @@ async function bootstrap() {
 
   // Configuration du CORS pour la production et le local
   app.enableCors({
-    origin: '*', // Pour le test, on autorise tout. On sécurisera après !
+    origin: process.env.FRONTEND_URL || 'http://localhost:3000', // URL de Vercel en prod, localhost en dev
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
